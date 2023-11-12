@@ -1,3 +1,4 @@
+/* Default styles for larger screens */
 .App {
     text-align: center;
     background-color: #f0f0f0;
@@ -8,51 +9,34 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: #333;
-   }
-   
-   header {
-    background-color: #4caf50;
-    min-height: 10vh;
+    background-color: white;
+  }
+  
+  header {
+    width: 100%;
+    min-height: 50vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-   }
-   
-   h1 {
-    font-size: 2em;
-   }
-   
-   .publication-list {
-    list-style-type: none;
-    padding: 0;
-    width: 60%;
-   }
-   
-   .publication-item {
-    background-color: white;
-    margin: 5px;
-    padding: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-   }
-   
-   .publication-item:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-   }
-   
-   .publication-title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-   }
-   
-   .publication-authors {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-   }
-   
-   .publication-date {
-    font-size: 1em;
-   }
+    padding-top: 60px;
+    background-image: url('/public/images/banner_image.png');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  h1 {
+    font-size: 1.8em; /* Adjusted font size for the main header */
+  }
+ 
+  .table{
+    margin: 3%;
+  }
+
+  @media (max-width: 768px) {
+    .table {
+      margin: 0;
+    }
+}
