@@ -64,20 +64,19 @@ export default function TableUnstyled() {
           <div className="dropdown">
             <select>
               <option value="" disabled selected>
-                Publication Month
+                Publication Year
               </option>
-              <option value="January">January</option>
-              <option value="February">February</option>
-              <option value="March">March</option>
-              <option value="April">April</option>
-              <option value="May">May</option>
-              <option value="June">June</option>
-              <option value="July">July</option>
-              <option value="August">August</option>
-              <option value="September">September</option>
-              <option value="October">October</option>
-              <option value="November">November</option>
-              <option value="December">December</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
             </select>
           </div>
           </div>
@@ -222,6 +221,13 @@ const Root = styled('div')(
       font-size: 0.7rem;
       color: var(--foreground);
     }
+    td,
+  th {
+    text-align: left;
+    padding: 10px 15px;
+    // border-bottom: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[300]};
+    border-bottom: 2px solid var(--gbackground);
+  }
   }
   `,
 );
