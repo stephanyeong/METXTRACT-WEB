@@ -51,7 +51,7 @@ export default function TableUnstyled() {
     };
 
     const handleButtonClick = (data) => {
-        alert(`Button clicked for ${data.title}`);
+      window.open(data, '_blank');
     };
 
     return (
@@ -98,7 +98,7 @@ export default function TableUnstyled() {
                         <tr key={index}>
                             <td className='title-text'>{data.title}</td>
                             <td>
-                                <button class="main-button" onClick={() => handleButtonClick(data)}>
+                                <button class="main-button" onClick={() => handleButtonClick(data.pdfDownloadUrl)}>
                                   <img class="pdf-button" src="/images/pdf.png" alt="PDF button" />
                                 </button>
                             </td>
