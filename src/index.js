@@ -9,6 +9,14 @@ link.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;6
 link.rel = 'stylesheet';
 document.head.appendChild(link);
 
+const rootStyles = document.documentElement.style;
+rootStyles.setProperty('--foreground', '#010101');
+rootStyles.setProperty('--gbackground', '#f5f6fa');
+rootStyles.setProperty('--dgbackground', '#d6d6d6');
+rootStyles.setProperty('--wbackground', '#ffffff');
+rootStyles.setProperty('--primary', '#4e1db4');
+rootStyles.setProperty('--secondary', '#7746db');
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

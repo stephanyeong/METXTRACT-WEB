@@ -1,0 +1,56 @@
+.carousel {
+    background-color: purple;
+    width: 100%;
+    height: 350px;
+    margin-top: 70px;
+    position: relative;
+  }
+  
+  .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* Set to "cover" instead of "contain" */
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .carousel-item.active {
+    opacity: 1;
+  }
+  
+  /* Optional: Add animation for smoother transitions */
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .carousel-item.fade-animation {
+    animation: fadeInOut 6s infinite; /* Adjust the animation duration as needed */
+  }
+  
+  /* Optional: Hide the navigation dots */
+  .slick-dots {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .carousel{
+      margin-top: 70px;
+      height: 200px;
+    }
+}
+  

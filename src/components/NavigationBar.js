@@ -36,7 +36,7 @@ function NavigationBar() {
         >
             <ul>
                 <li>
-                    <a href="/home">Home</a>
+                    <a href="/home">Library</a>
                 </li>
                 <li>
                     <a href="/about">About</a>

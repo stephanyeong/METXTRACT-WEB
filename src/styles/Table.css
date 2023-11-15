@@ -1,0 +1,57 @@
+.search-bar {
+    background-color: var(--wbackground);
+    height: 70px;
+    margin-bottom: 2%;
+    box-shadow: 0px 2px 16px #E5EAF2;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+  }
+  
+  .search-input {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    border: 2px solid var(--gbackground);
+    border-radius: 12px;
+  }
+  .search-input:focus-within {
+    border-color: var(--primary); /* Change the border color when the input or its children are in focus */
+  }
+  .search-input input {
+    border: none;
+    outline: none; 
+    width: 100%;
+    font-family: Poppins, sans-serif;
+    padding: 5px;
+  }
+  
+  .search-icon {
+    margin: 0 5px; /* Adjust the margin as needed */
+    color: var(--dgbackground);
+    height: 20px; /* Adjust the color as needed */
+  }
+  .dropdown {
+    display: inline-block;
+    position: relative;
+    width: 250px; /* Adjust the width as needed */
+    margin-left: 10px; /* Adjust the spacing between the input and dropdown */
+  }
+  .dropdown select:focus {
+    border-color: var(--primary); /* Change the border color when the dropdown is in focus */
+  }
+  
+  .dropdown select {
+    width: 100%;
+    padding: 12px;
+    /* height: 45px; */
+    border: 2px solid var(--gbackground);
+    border-radius: 12px;
+    outline: none;
+    font-family: Poppins, sans-serif;
+    appearance: none;
+    background: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%231e4155' d='M6 9.25L2.22 5.47a.75.75 0 011.06-1.06L6 7.19l2.72-2.78a.75.75 0 111.06 1.06L6 9.25z'/></svg>")
+      no-repeat calc(100% - 20px) center;
+  }

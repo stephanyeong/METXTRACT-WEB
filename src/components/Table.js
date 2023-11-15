@@ -7,9 +7,11 @@ import {
   TablePagination,
   tablePaginationClasses as classes,
 } from '@mui/base/TablePagination';
+import '../styles/Table.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export default function TableUnstyled() {
-
     const [dataSet, setDataSet] = useState([]);
 
     async function fetchDataFromPdfList() {
@@ -34,10 +36,10 @@ export default function TableUnstyled() {
     }, []);
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dataSet.length) : 0;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -52,16 +54,40 @@ export default function TableUnstyled() {
         alert(`Button clicked for ${data.title}`);
     };
 
-
     return (
         <Root>
+          <div className="search-bar">
+            <div className="search-input">
+              <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <input type="text" placeholder="Search" />
+            </div>
+          <div className="dropdown">
+            <select>
+              <option value="" disabled selected>
+                Publication Month
+              </option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+          </div>
+          </div>
             <table className="table_list" aria-label="custom pagination table">
                 <thead>
                     <tr>
                         <th className='title-cell'>Title</th>
-                        <th>File</th>
-                        <th>Authors</th>
-                        <th>Publication Date</th>
+                        <th className='title-cell'>File</th>
+                        <th className='title-cell'>Authors</th>
+                        <th className='title-cell'>Publication Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,12 +96,14 @@ export default function TableUnstyled() {
                         : dataSet
                     ).map((data, index) => (
                         <tr key={index}>
-                            <td>{data.title}</td>
+                            <td className='title-text'>{data.title}</td>
                             <td>
-                                <button onClick={() => handleButtonClick(data)}>Button</button>
+                                <button class="main-button" onClick={() => handleButtonClick(data)}>
+                                  <img class="pdf-button" src="/images/pdf.png" alt="PDF button" />
+                                </button>
                             </td>
-                            <td>{data.authors}</td>
-                            <td>{data.publicationDate}</td>
+                            <td className='author-text'>{data.authors}</td>
+                            <td className='publication-text'>{data.publicationDate}</td>
                         </tr>
                     ))}
                     {emptyRows > 0 && (
@@ -85,9 +113,9 @@ export default function TableUnstyled() {
                     )}
                 </tbody>
                 <tfoot>
-                    <tr>
+                <tr className="no-border">
                         <CustomTablePagination
-                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                        rowsPerPageOptions={[3, 5, 10, 25, { label: 'All', value: -1 }]}
                         colSpan={4}
                         count={dataSet.length}
                         rowsPerPage={rowsPerPage}
@@ -111,26 +139,6 @@ export default function TableUnstyled() {
     );
 }
 
-function createData(name, calories, fat) {
-  return { name, calories, fat };
-}
-
-const rows = [
-  // createData('Cupcake', 305, 3.7),
-  // createData('Donut', 452, 25.0),
-  // createData('Eclair', 262, 16.0),
-  // createData('Frozen yoghurt', 159, 6.0),
-  // createData('Gingerbread', 356, 16.0),
-  // createData('Honeycomb', 408, 3.2),
-  // createData('Ice cream sandwich', 237, 9.0),
-  // createData('Jelly Bean', 375, 0.0),
-  // createData('KitKat', 518, 26.0),
-  // createData('Lollipop', 392, 0.2),
-  // createData('Marshmallow', 318, 0),
-  // createData('Nougat', 360, 19.0),
-  // createData('Oreo', 437, 18.0),
-]
-
 const grey = {
   50: '#F3F6F9',
   100: '#E5EAF2',
@@ -146,31 +154,60 @@ const grey = {
 
 const Root = styled('div')(
   ({ theme }) => `
+  .title-cell{
+    border-radius: 12px;
+    height: 40px;
+    font-size: 0.95rem;
+    color: var(--foreground);
+  }
   .table_list {
-    font-family: IBM Plex Sans, sans-serif;
     font-size: 0.875rem;
     width: 100%;
-    background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-    box-shadow: 0px 2px 16px ${
-      theme.palette.mode === 'dark' ? grey[900] : grey[200]
-    };
+    background-color: var(--wbackground);
+    box-shadow: 0px 2px 16px #E5EAF2;
     border-radius: 12px;
-    overflow: hidden;
-    // border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
+    height: 500px;
+    overflow-y: auto;
+    border-collapse: collapse;
   }
-
+  .title-text{
+    font-weight: 500;
+  }
+  .author-text{
+    font-style: italic;
+  }
+  .pdf-button{
+    height: 30px;
+  }
+  .main-button {
+    background: none; 
+    border: none;   
+    padding: 0;   
+    cursor: pointer;
+  }
+  
   td,
   th {
-    // border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
     text-align: left;
-    padding: 8px;
+    padding: 15px 25px;
+    // border-bottom: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[300]};
+    border-bottom: 2px solid var(--gbackground);
+  }
+
+  th:last-child, td:last-child {
+    width: 13%; /* Adjust the width as needed */
   }
 
   th {
     background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+  }
+
+  tfoot tr:last-child td {
+    border-bottom: none; /* Remove the bottom border from the last row in the "tfoot" section */
   }
   `,
 );
+
 
 const CustomTablePagination = styled(TablePagination)`
   & .${classes.toolbar} {
