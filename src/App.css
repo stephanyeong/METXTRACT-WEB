@@ -76,6 +76,8 @@
   @media (max-width: 768px) {
     .table {
       margin: 1%;
+      margin: 2rem 12rem 2rem 12rem;
+      width: 100%;
     }
     .disclaimer-text{
       margin: 1%;

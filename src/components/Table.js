@@ -194,9 +194,9 @@ const Root = styled('div')(
     border-bottom: 2px solid var(--gbackground);
   }
 
-  th:last-child, td:last-child {
-    width: 13%; /* Adjust the width as needed */
-  }
+  // th:last-child, td:last-child {
+  //   width: 13%; /* Adjust the width as needed */
+  // }
 
   th {
     background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
@@ -204,6 +204,24 @@ const Root = styled('div')(
 
   tfoot tr:last-child td {
     border-bottom: none; /* Remove the bottom border from the last row in the "tfoot" section */
+  }
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+
+    .table_list {
+    font-size: 0.6rem;
+    }
+    .pdf-button{
+      height: 25px;
+    }
+    .title-cell{
+      border-radius: 12px;
+      height: 40px;
+      font-size: 0.7rem;
+      color: var(--foreground);
+    }
   }
   `,
 );
@@ -220,6 +238,11 @@ const CustomTablePagination = styled(TablePagination)`
     @media (min-width: 768px) {
       flex-direction: row;
       align-items: center;
+
+      .table_list {
+        width: 100%;
+        height: auto;
+      }
     }
   }
 

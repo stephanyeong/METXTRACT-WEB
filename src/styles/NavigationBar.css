@@ -57,6 +57,9 @@
     background-color: var(--secondary);
 }
     @media screen and (max-width: 768px) {
+        .navigation {
+            width: 100%;
+        }
         .brand-name{
             margin-left: 1rem;
         }
