@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { app } from '../firebase'; 
+import { app } from '../firebase';
 import { useEffect, useState } from 'react';
 import {
   TablePagination,
@@ -12,130 +12,204 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 export default function TableUnstyled() {
-    const [dataSet, setDataSet] = useState([]);
+  const [dataSet, setDataSet] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [selectedYears, setSelectedYears] = useState([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-    async function fetchDataFromPdfList() {
-        const db = getFirestore(app);
-        const pdfListRef = collection(db, 'pdfList');
+  async function fetchDataFromPdfList() {
+    const db = getFirestore(app);
+    const pdfListRef = collection(db, 'pdfList');
 
-        try {
-            const querySnapshot = await getDocs(pdfListRef);
-            const newData = [];
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                newData.push(data);
-            });
-            setDataSet(newData);
-        } catch (error) {
-            console.error('Error getting documents: ', error);
-        }
+    try {
+      const querySnapshot = await getDocs(pdfListRef);
+      const newData = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        newData.push(data);
+      });
+      setDataSet(newData);
+      setFilteredData(newData); 
+    } catch (error) {
+      console.error('Error getting documents: ', error);
     }
+  }
 
-    useEffect(() => {
-        fetchDataFromPdfList();
-    }, []);
+  useEffect(() => {
+    fetchDataFromPdfList();
+  }, []);
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredData.length) : 0;
 
-    const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - dataSet.length) : 0;
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
+  const handleButtonClick = (data) => {
+    window.open(data, '_blank');
+  };
 
-    const handleButtonClick = (data) => {
-      window.open(data, '_blank');
-    };
+  const handleSearchChange = (event) => {
+    const term = event.target.value.toLowerCase();
+    setSearchTerm(term);
 
-    return (
-        <Root>
-          <div className="search-bar">
-            <div className="search-input">
-              <FontAwesomeIcon icon={faSearch} className="search-icon" />
-              <input type="text" placeholder="Search" />
-            </div>
-          <div className="dropdown">
-            <select>
-              <option value="" disabled selected>
-                Publication Year
-              </option>
-              <option value="2023">2023</option>
-              <option value="2022">2022</option>
-              <option value="2021">2021</option>
-              <option value="2020">2020</option>
-              <option value="2019">2019</option>
-              <option value="2018">2018</option>
-              <option value="2017">2017</option>
-              <option value="2016">2016</option>
-              <option value="2015">2015</option>
-              <option value="2014">2014</option>
-              <option value="2013">2013</option>
-            </select>
-          </div>
-          </div>
-            <table className="table_list" aria-label="custom pagination table">
-                <thead>
-                    <tr>
-                        <th className='title-cell'>Title</th>
-                        <th className='title-cell'>File</th>
-                        <th className='title-cell'>Authors</th>
-                        <th className='title-cell'>Publication Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {(rowsPerPage > 0
-                        ? dataSet.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : dataSet
-                    ).map((data, index) => (
-                        <tr key={index}>
-                            <td className='title-text'>{data.title}</td>
-                            <td>
-                                <button class="main-button" onClick={() => handleButtonClick(data.pdfDownloadUrl)}>
-                                  <img class="pdf-button" src="/images/pdf.png" alt="PDF button" />
-                                </button>
-                            </td>
-                            <td className='author-text'>{data.authors}</td>
-                            <td className='publication-text'>{data.publicationDate}</td>
-                        </tr>
-                    ))}
-                    {emptyRows > 0 && (
-                        <tr style={{ height: 41 * emptyRows }}>
-                            <td colSpan={4} aria-hidden />
-                        </tr>
-                    )}
-                </tbody>
-                <tfoot>
-                <tr className="no-border">
-                        <CustomTablePagination
-                        rowsPerPageOptions={[3, 5, 10, 25, { label: 'All', value: -1 }]}
-                        colSpan={4}
-                        count={dataSet.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        slotProps={{
-                            select: {
-                            'aria-label': 'rows per page',
-                            },
-                            actions: {
-                            showFirstButton: true,
-                            showLastButton: true,
-                            },
-                        }}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                        />
-                    </tr>
-                </tfoot>
-            </table>
-        </Root>
+    const filtered = dataSet.filter(
+      (data) =>
+        data.title.toLowerCase().includes(term) ||
+        data.authors.toLowerCase().includes(term) ||
+        data.publicationDate.toLowerCase().includes(term)
     );
+
+    setFilteredData(filtered);
+    setPage(0); 
+  };
+
+  const handleYearChange = (event) => {
+    const year = parseInt(event.target.value, 10);
+    const updatedSelectedYears = event.target.checked
+      ? [...selectedYears, year]
+      : selectedYears.filter((selectedYear) => selectedYear !== year);
+    setSelectedYears(updatedSelectedYears);
+  
+    const filtered = dataSet.filter(
+      (data) =>
+        data.title.toLowerCase().includes(searchTerm) &&
+        (updatedSelectedYears.length === 0 ||
+          updatedSelectedYears.includes(new Date(data.publicationDate).getFullYear()))
+    );
+  
+    setFilteredData(filtered);
+    setPage(0);
+  };
+  
+
+  const handleFilterToggle = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+
+  useEffect(() => {
+    const handleDocumentClick = (event) => {
+      if (isFilterOpen && !event.target.closest('.dropdown')) {
+        setIsFilterOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, [isFilterOpen]);
+
+  return (
+    <Root>
+      <div className="search-bar">
+        <div className="search-input">
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
+        <div className="dropdown" onClick={handleFilterToggle}>
+          <label>Select Year</label>
+          {isFilterOpen && (
+            <div className="filter-options">
+              {Array.from({ length: 14 }, (_, index) => 2010 + index).map(
+                (year) => (
+                  <div key={year}>
+                    <input
+                      type="checkbox"
+                      id={year}
+                      value={year}
+                      checked={selectedYears.includes(year)}
+                      onChange={handleYearChange}
+                    />
+                    <label htmlFor={year}>{year}</label>
+                  </div>
+                )
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+      <table className="table_list" aria-label="custom pagination table">
+        <thead>
+          <tr>
+            <th className="title-cell">Title</th>
+            <th className="title-cell">File</th>
+            <th className="title-cell">Authors</th>
+            <th className="title-cell">Publication Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {(rowsPerPage > 0
+            ? filteredData.slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )
+            : filteredData
+          ).map((data, index) => (
+            <tr key={index}>
+              <td className="title-text">{data.title}</td>
+              <td>
+                <button
+                  className="main-button"
+                  onClick={() => handleButtonClick(data.pdfDownloadUrl)}
+                >
+                  <img
+                    className="pdf-button"
+                    src="/images/pdf.png"
+                    alt="PDF button"
+                  />
+                </button>
+              </td>
+              <td className="author-text">{data.authors}</td>
+              <td className="publication-text">{data.publicationDate}</td>
+            </tr>
+          ))}
+          {emptyRows > 0 && (
+            <tr style={{ height: 41 * emptyRows }}>
+              <td colSpan={4} aria-hidden />
+            </tr>
+          )}
+        </tbody>
+        <tfoot>
+          <tr className="no-border">
+            <CustomTablePagination
+              rowsPerPageOptions={[3, 5, 10, 25, { label: 'All', value: -1 }]}
+              colSpan={4}
+              count={filteredData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              slotProps={{
+                select: {
+                  'aria-label': 'rows per page',
+                },
+                actions: {
+                  showFirstButton: true,
+                  showLastButton: true,
+                },
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </tr>
+        </tfoot>
+      </table>
+    </Root>
+  );
 }
 
 const grey = {
@@ -193,9 +267,9 @@ const Root = styled('div')(
     border-bottom: 2px solid var(--gbackground);
   }
 
-  // th:last-child, td:last-child {
-  //   width: 13%; /* Adjust the width as needed */
-  // }
+  th:last-child, td:last-child {
+    width: 13%; /* Adjust the width as needed */
+  }
 
   th {
     background-color: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
@@ -232,7 +306,6 @@ const Root = styled('div')(
   `,
 );
 
-
 const CustomTablePagination = styled(TablePagination)`
   & .${classes.toolbar} {
     display: flex;
@@ -244,11 +317,6 @@ const CustomTablePagination = styled(TablePagination)`
     @media (min-width: 768px) {
       flex-direction: row;
       align-items: center;
-
-      .table_list {
-        width: 100%;
-        height: auto;
-      }
     }
   }
 
