@@ -18,7 +18,7 @@
     border-radius: 12px;
   }
   .search-input:focus-within {
-    border-color: var(--primary); /* Change the border color when the input or its children are in focus */
+    border-color: var(--primary);
   }
   .search-input input {
     border: none;
@@ -29,24 +29,49 @@
   }
   
   .search-icon {
-    margin: 0 5px; /* Adjust the margin as needed */
+    margin: 0 5px; 
     color: var(--dgbackground);
-    height: 20px; /* Adjust the color as needed */
+    height: 20px; 
   }
-  .dropdown {
-    display: inline-block;
-    position: relative;
-    width: 250px; /* Adjust the width as needed */
-    margin-left: 10px; /* Adjust the spacing between the input and dropdown */
-  }
-  .dropdown label:focus {
-    border-color: var(--primary); /* Change the border color when the dropdown is in focus */
-  }
+.dropdown {
+  display: inline-block;
+  position: relative;
+  width: 250px;
+  margin-left: 10px;
+}
+
+.dropdown-labeltext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /* left: 12px;  */
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  /* text-align: left; */
+  color: #585858;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 2px solid var(--gbackground);
+  border-radius: 12px;
+  outline: none;
+  font-family: Poppins, sans-serif;
+  appearance: none;
+  background: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%231e4155' d='M6 9.25L2.22 5.47a.75.75 0 011.06-1.06L6 7.19l2.72-2.78a.75.75 0 111.06 1.06L6 9.25z'/></svg>")
+  no-repeat calc(100% - 20px) center;
+}
+.dropdown.active .dropdown-labeltext {
+  border-color: var(--primary);
+}
+
+
+  /* .dropdown h4:focus {
+    border-color: var(--primary); 
+  } */
   
-  .dropdown label {
+  /* .dropdown h4 {
     width: 100%;
     padding: 12px;
-    /* height: 45px; */
     border: 2px solid var(--gbackground);
     border-radius: 12px;
     outline: none;
@@ -54,4 +79,29 @@
     appearance: none;
     background: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%231e4155' d='M6 9.25L2.22 5.47a.75.75 0 011.06-1.06L6 7.19l2.72-2.78a.75.75 0 111.06 1.06L6 9.25z'/></svg>")
       no-repeat calc(100% - 20px) center;
+  }  */
+
+  .filter-options {
+    position: absolute;
+    top: calc(100% + 25px); /* Adjust the value as needed */
+    left: 0;
+    background-color: #fff;
+    border: 2px solid var(--gbackground);
+    border-radius: 12px;
+    width: 100%;
+    z-index: 1;
+    font-size: 15px;
+    max-height: 250px;
+    overflow-y: auto;
   }
+  
+  
+  .filter-options div {
+    padding: 10px;
+  }
+  
+  .filter-options input {
+    margin-right: 8px;
+    
+  }
+  

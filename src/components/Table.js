@@ -123,7 +123,7 @@ export default function TableUnstyled() {
           />
         </div>
         <div className="dropdown" onClick={handleFilterToggle}>
-          <label>Select Year</label>
+          <div className="dropdown-labeltext">Select Year</div>
           {isFilterOpen && (
             <div className="filter-options">
               {Array.from({ length: 14 }, (_, index) => 2010 + index).map(
@@ -240,6 +240,7 @@ const Root = styled('div')(
     box-shadow: 0px 2px 16px #E5EAF2;
     border-radius: 12px;
     height: 500px;
+    width: 100%;
     overflow-y: auto;
     border-collapse: collapse;
   }
