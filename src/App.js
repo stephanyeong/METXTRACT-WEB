@@ -3,6 +3,8 @@ import './App.css';
 import NavigationBar from './components/NavigationBar';
 import Carousel from './components/Carousel';
 import Table from './components/Table';
+import { MdOutlineLocationOn, MdOutlineMailOutline, MdOutlinePhone } from "react-icons/md";
+import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 function App() {
   return (
@@ -17,21 +19,31 @@ function App() {
         <Table />
       </div>
       <footer className="footer">
-        <div className="footer-section">
-          <h3>Contact Us</h3>
-          <p>Email: contact@example.com</p>
-          <p>Phone: (123) 456-7890</p>
+        <div className="footer-section1">
+          <h3>METXTRACT</h3>
+          <p>insert *what is METXTRACT?* - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. </p>
+          <p><br/>Copyright: insert *initial*</p>
         </div>
-        <div className="footer-section">
-          <h3>Follow Us</h3>
-          <p>Twitter</p>
-          <p>Facebook</p>
-          <p>Instagram</p>
+        <div className="footer-section2">
+          <div className="contact_title">Get in Touch</div>
+          <div className="contact-container">
+            <MdOutlineLocationOn className="icon"/> <span>8819 Ohio St. South Gate, CA 90280</span>
+          </div>
+          <div className="contact-container">
+            <MdOutlineMailOutline className="icon"/> <span>metxtract@gmail.com</span>
+          </div>
+          <div className="contact-container">
+            <MdOutlinePhone className="icon"/> <span>+639614222665</span>
+          </div>
         </div>
-        <div className="footer-section">
-          <h3>Address</h3>
-          <p>123 Main Street</p>
-          <p>City, Country</p>
+        <div className="footer-section3">
+          <div className="socials">
+            <div className="socials_container"><FaFacebookF className="icon_socials"/></div>
+            <div className="socials_container"><FaInstagram className="icon_socials"/></div>
+            <div className="socials_container"><FaXTwitter className="icon_socials"/></div>
+            <div className="socials_container"><MdOutlineMailOutline className="icon_socials"/></div>
+          </div>
+          <div className="socials_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</div>
         </div>
       </footer>
     </div>

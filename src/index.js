@@ -14,8 +14,12 @@ rootStyles.setProperty('--foreground', '#010101');
 rootStyles.setProperty('--gbackground', '#f5f6fa');
 rootStyles.setProperty('--dgbackground', '#d6d6d6');
 rootStyles.setProperty('--wbackground', '#ffffff');
-rootStyles.setProperty('--primary', '#4e1db4');
+rootStyles.setProperty('--primary', '#048CB4');
 rootStyles.setProperty('--secondary', '#7746db');
+rootStyles.setProperty('--lbgbackground', '#59a7bd');
+rootStyles.setProperty('--ftrbackground', '#77A8B6');
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

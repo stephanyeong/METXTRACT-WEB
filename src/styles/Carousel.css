@@ -1,56 +1,172 @@
 .carousel {
-    background-color: purple;
-    width: 100%;
-    height: 350px;
+  display: flex;
+  background-color: var(--lbgbackground);
+  width: 100%;
+  height: 350px;
+  margin-top: 70px;
+  position: relative;
+}
+
+.column1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+  background-color: var(--lbgbackground);
+  text-align: left;
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 40px;
+  color: var(--wbackground);
+  margin-top: -20px;
+  margin-bottom: -15px;
+  text-transform: capitalize;
+  padding-left: 12rem;
+}
+
+.subheader {
+  font-weight: 200;
+  font-size: 14px;
+  color: var(--wbackground);
+  padding-left: 12rem;
+}
+
+.a_button {
+  padding-left: 12rem;
+}
+
+a.additional-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--wbackground);
+  color: var(--primary);
+  border-radius: 20px;
+  text-decoration: none;
+  margin-top: 5px;
+}
+
+.carousel-image {
+  display: none;
+}
+
+.carousel-image.active {
+  display: block;
+}
+
+.image-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.image-container img {
+  max-width: 75%;
+  max-height: 75vh;
+  display: block;
+  margin: auto;
+  padding-right: 25rem;
+}
+
+.column2 {
+  flex: 1;
+  background-color: var(--lbgbackground);
+  padding: 20px;
+  position: relative;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 40%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #3498db;
+}
+
+@media (max-width: 768px) {
+  .carousel {
     margin-top: 70px;
-    position: relative;
-  }
-  
-  .carousel-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover; /* Set to "cover" instead of "contain" */
-    background-position: center;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-  }
-  
-  .carousel-item.active {
-    opacity: 1;
-  }
-  
-  /* Optional: Add animation for smoother transitions */
-  @keyframes fadeInOut {
-    0% {
-      opacity: 0;
-    }
-    25% {
-      opacity: 1;
-    }
-    75% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  
-  .carousel-item.fade-animation {
-    animation: fadeInOut 6s infinite; /* Adjust the animation duration as needed */
-  }
-  
-  /* Optional: Hide the navigation dots */
-  .slick-dots {
-    display: none;
+    flex-direction: column;
   }
 
-  @media (max-width: 768px) {
-    .carousel{
-      margin-top: 70px;
-      height: 200px;
-    }
+  h2 {
+    font-weight: 400;
+    font-size: 20px;
+    padding-left: 2rem;
+    margin-top: 20px;
+  }
+
+  .subheader {
+    font-weight: 200;
+    font-size: 8px;
+    margin-top: 15px;
+    color: var(--wbackground);
+    padding-left: 2rem;
+  }
+
+  .a_button {
+    padding-left: 2rem;
+  }
+
+  a.additional-link {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 8px;
+    font-weight: 500;
+    background-color: var(--wbackground);
+    color: var(--primary);
+    border-radius: 20px;
+    text-decoration: none;
+    margin-top: 5px;
+  }
+
+  .column2 {
+    margin-top: -28px;
+  }
+
+  .image-container {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  .image-container img {
+    max-width: 75%;
+    max-height: 75vh;
+    display: block;
+    margin: auto;
+    padding-right: 0rem;
+  }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+  }
 }
-  

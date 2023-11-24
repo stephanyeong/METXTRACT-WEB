@@ -3,14 +3,15 @@
     width: 100%;
     display: flex;
     align-items: center;
-    position: fixed; 
+    position: fixed;
     top: 0;
-    z-index: 1000; 
+    z-index: 1000;
     padding: 0.5rem 0rem;
     background: var(--wbackground);
     color: var(--primary);
     box-shadow: 0 0.5px 0.5px 0.5px rgba(93, 93, 93, 0.23);
 }
+
 .brand-name {
     text-decoration: none;
     color: var(--primary);
@@ -18,18 +19,22 @@
     font-weight: bold;
     margin-left: 12rem;
 }
+
 .navigation-menu {
     margin-left: auto;
 }
+
 .navigation-menu ul {
     display: flex;
     padding: 0;
     margin-right: 12rem;
 }
+
 .navigation-menu li {
     list-style-type: none;
     margin-left: 2rem;
 }
+
 .navigation-menu li a {
     text-decoration: none;
     color: var(--foreground);
@@ -38,6 +43,7 @@
     display: block;
     width: 100%;
 }
+
 .hamburger {
     border: 0;
     height: 40px;
@@ -53,44 +59,127 @@
     transform: translateY(-50%);
     display: none;
 }
+
 .hamburger:hover {
-    background-color: var(--secondary);
+    background-color: var(--lbgbackground);
 }
-    @media screen and (max-width: 768px) {
-        .navigation {
-            width: 100%;
-        }
-        .brand-name{
-            margin-left: 1rem;
-        }
-        .hamburger {
-            display: block;
-            right: 1rem;
-        }
-        .navigation-menu ul {
-            position: absolute;
-            top: 55px;
-            left: 0;
-            flex-direction: column;
-            width: 100%;
-            height: calc(100vh - 77px);
-            background-color: white;
-            border-top: 2px solid var(--gbackground);
-            display: none;
-        }
-        .navigation-menu.expanded ul {
-            display: block;
-        }
-        .navigation-menu li {
-            text-align: center;
-            margin: 0;
-        }
-        .navigation-menu li a {
-            color: black;
-            width: 100%;
-            padding: 1.5rem 0;
-        }
-        .navigation-menu li:hover {
-            background-color: #eee;
-        }
+
+/* hamburger container styles */
+.footer {
+    background-color: var(--lbgbackground);
+    color: var(--wbackground);
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    width: 100%;
+}
+
+.hb-section1,
+.hb-section2,
+.hb-section3 {
+    flex: 1;
+    text-align: left;
+    font-size: 0.8rem;
+    padding: 10px 20px 10px 20px;
+}
+
+.hb-section1text,
+.hb-contact_title,
+.hb-contact-container,
+.hb-icon,
+.hb-footer h3,
+.hb-icon_socials,
+.hb-socials_text {
+    color: var(--foreground);
+}
+
+.hb-socials_text {
+    text-align: center;
+    margin-top: -5px;
+}
+
+.hb-contact_title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.hb-socials {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.hb-socials_container {
+    flex: 1;
+    padding-top: 1rem;
+    text-align: center;
+}
+
+.hb-icon_socials {
+    color: var(--wbackground);
+    background-color: var(--lbgbackground);
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.hb-socials_text {
+    padding: 20px 15px 15px 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .navigation {
+        width: 100%;
     }
+
+    .brand-name {
+        margin-left: 1rem;
+    }
+
+    .hamburger {
+        display: block;
+        right: 1rem;
+    }
+
+    .navigation-menu ul {
+        position: absolute;
+        top: 55px;
+        left: 0;
+        flex-direction: column;
+        width: 100%;
+        height: calc(100vh - 77px);
+        background-color: white;
+        border-top: 2px solid var(--gbackground);
+        display: none;
+    }
+
+    .navigation-menu.expanded ul {
+        display: block;
+    }
+
+    .navigation-menu li {
+        text-align: center;
+        margin: 0;
+    }
+
+    .navigation-menu li a {
+        color: black;
+        width: 100%;
+        padding: 1.5rem 0;
+    }
+
+    .navigation-menu li:hover {
+        background-color: #eee;
+    }
+
+    .footer {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .navigation-menu ul {
+        display: none;
+    }
+}

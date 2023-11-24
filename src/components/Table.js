@@ -299,7 +299,7 @@ const Root = styled('div')(
     td,
   th {
     text-align: left;
-    padding: 10px 15px;
+    padding: 5px 15px;
     // border-bottom: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[300]};
     border-bottom: 2px solid var(--gbackground);
   }
