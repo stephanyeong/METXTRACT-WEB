@@ -92,7 +92,8 @@ export default function TableUnstyled() {
   };
   
 
-  const handleFilterToggle = () => {
+  const handleFilterToggle = (event) => {
+    event.preventDefault();
     setIsFilterOpen(!isFilterOpen);
   };
 
