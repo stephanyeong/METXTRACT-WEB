@@ -279,7 +279,7 @@ const Root = styled('div')(
   tfoot tr:last-child td {
     border-bottom: none; /* Remove the bottom border from the last row in the "tfoot" section */
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     overflow-x: auto;
     display: block;
     width: 100%;
