@@ -315,7 +315,7 @@ const CustomTablePagination = styled(TablePagination)`
     gap: 10px;
     border-radius: 50px;
 
-    @media (min-width: 768px) {
+    @media (min-width: 767px) {
       flex-direction: row;
       align-items: center;
     }
