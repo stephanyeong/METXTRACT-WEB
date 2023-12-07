@@ -155,31 +155,39 @@ export default function TableUnstyled() {
           </tr>
         </thead>
         <tbody>
-          {(rowsPerPage > 0
-            ? filteredData.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : filteredData
-          ).map((data, index) => (
-            <tr key={index}>
-              <td className="title-text">{data.title}</td>
-              <td>
-                <button
-                  className="main-button"
-                  onClick={() => handleButtonClick(data.pdfDownloadUrl)}
-                >
-                  <img
-                    className="pdf-button"
-                    src="/images/pdf.png"
-                    alt="PDF button"
-                  />
-                </button>
+          {filteredData.length === 0 ? (
+            <tr>
+              <td colSpan={4} style={{ textAlign: 'center' }}>
+                No Publications Found
               </td>
-              <td className="author-text">{data.authors}</td>
-              <td className="publication-text">{data.publicationDate}</td>
             </tr>
-          ))}
+          ) : (
+            (rowsPerPage > 0
+              ? filteredData.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : filteredData
+            ).map((data, index) => (
+              <tr key={index}>
+                <td className="title-text">{data.title}</td>
+                <td>
+                  <button
+                    className="main-button"
+                    onClick={() => handleButtonClick(data.pdfDownloadUrl)}
+                  >
+                    <img
+                      className="pdf-button"
+                      src="/images/pdf.png"
+                      alt="PDF button"
+                    />
+                  </button>
+                </td>
+                <td className="author-text">{data.authors}</td>
+                <td className="publication-text">{data.publicationDate}</td>
+              </tr>
+            ))
+          )}
           {emptyRows > 0 && (
             <tr style={{ height: 41 * emptyRows }}>
               <td colSpan={4} aria-hidden />
@@ -236,12 +244,11 @@ const Root = styled('div')(
   }
   .table_list {
     font-size: 0.875rem;
-    width: 100%;
     background-color: var(--wbackground);
     box-shadow: 0px 2px 16px #E5EAF2;
     border-radius: 12px;
     height: 500px;
-    width: 100%;
+    width: 1130px;
     overflow-y: auto;
     border-collapse: collapse;
   }
@@ -287,6 +294,7 @@ const Root = styled('div')(
 
     .table_list {
     font-size: 0.6rem;
+    width: 100%;
     }
     .pdf-button{
       height: 25px;
