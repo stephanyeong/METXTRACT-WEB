@@ -18,7 +18,7 @@
     color: var(--primary);
     font-size: 1.5rem;
     font-weight: bold;
-    margin-left: 12rem;
+    margin-left: 1rem;
   }
   
   .logo-image {
@@ -27,7 +27,7 @@
   
   .logo-image-web {
     height: 40px;
-    margin-left: 250%;
+    margin-left: 12rem;
   }
   
   .brand-container {

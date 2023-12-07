@@ -31,10 +31,10 @@ function NavigationBar() {
           <img src="images/logo.png" alt="Logo" className="logo-image" />
         ) : (
           <>
+          <img src="images/logo.png" alt="Logo" className="logo-image-web" />
             <a href="/" className="brand-name">
               METXTRACT
             </a>
-            <img src="images/logo.png" alt="Logo" className="logo-image-web" />
           </>
         )}
       </div>
