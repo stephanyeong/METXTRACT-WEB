@@ -2,23 +2,39 @@
     height: 60px;
     width: 100%;
     display: flex;
+    justify-content: space-between; /* Updated to justify content */
     align-items: center;
     position: fixed;
     top: 0;
     z-index: 1000;
-    padding: 0.5rem 0rem;
+    padding: 0.5rem 1rem; /* Adjusted padding */
     background: var(--wbackground);
     color: var(--primary);
     box-shadow: 0 0.5px 0.5px 0.5px rgba(93, 93, 93, 0.23);
-}
-
-.brand-name {
+  }
+  
+  .brand-name {
     text-decoration: none;
     color: var(--primary);
     font-size: 1.5rem;
     font-weight: bold;
     margin-left: 12rem;
-}
+  }
+  
+  .logo-image {
+    height: 40px;
+  }
+  
+  .logo-image-web {
+    height: 40px;
+    margin-left: 250%;
+  }
+  
+  .brand-container {
+    display: flex;
+    align-items: center;
+  }
+  
 
 .navigation-menu {
     margin-left: auto;
@@ -55,7 +71,7 @@
     transition: background-color 0.2s ease-in-out;
     position: absolute;
     top: 50%;
-    right: 2.5rem;
+    right: 2rem;
     transform: translateY(-50%);
     display: none;
 }
@@ -137,9 +153,14 @@
         margin-left: 1rem;
     }
 
+    .logo-image {
+        height: 40px;
+        margin-left: 1rem;
+    }
+
     .hamburger {
         display: block;
-        right: 1rem;
+        /* margin-right: 1rem; */
     }
 
     .navigation-menu ul {
