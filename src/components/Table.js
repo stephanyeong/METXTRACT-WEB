@@ -113,6 +113,7 @@ export default function TableUnstyled() {
 
   return (
     <Root>
+      <hr className="divider"/>
       <div className="search-bar">
         <div className="search-input">
           <FontAwesomeIcon icon={faSearch} className="search-icon" />

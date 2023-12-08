@@ -9,6 +9,9 @@
   padding: 0 16px;
 }
 
+.divider{
+  margin-bottom: 2.5rem;
+}
 .search-input {
   padding: 5px;
   display: flex;

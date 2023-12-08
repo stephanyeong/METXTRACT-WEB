@@ -20,7 +20,14 @@
     font-weight: bold;
     margin-left: 1rem;
   }
-  
+  .copytitle{
+    font-weight: bold;
+    font-size: 1em;
+
+  }
+  .copyinitials{
+    font-style: italic;
+  }
   .logo-image {
     height: 40px;
   }
@@ -98,9 +105,13 @@
     flex: 1;
     text-align: left;
     font-size: 0.8rem;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 50px 10px 50px;
 }
 
+.hb-section1text,
+.hb-contact-container{
+    text-align: justify;
+}
 .hb-section1text,
 .hb-contact_title,
 .hb-contact-container,
@@ -109,6 +120,7 @@
 .hb-icon_socials,
 .hb-socials_text {
     color: var(--foreground);
+    margin-bottom: 0.5rem;
 }
 
 .hb-socials_text {

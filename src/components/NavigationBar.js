@@ -67,8 +67,7 @@ function NavigationBar() {
             <div className="hb-section1">
               <h3>METXTRACT</h3>
               <p className="hb-section1text">
-                insert *what is METXTRACT?* - Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Sed do eiusmod tempor.{' '}
+              METXTRACT serves as a platform for scholarly research, providing a comprehensive range of features and resources tailored to the needs of academics, researchers, and students. It serves as our final requirement for Capstone Project 2 for the first semester of the Academic Year 2023-2024.
               </p>
             </div>
           </li>
@@ -77,36 +76,22 @@ function NavigationBar() {
               <h3>GET IN TOUCH</h3>
               <div className="hb-contact-container">
                 <MdOutlineLocationOn className="icon" />{' '}
-                <span>8819 Ohio St. South Gate, CA 90280</span>
+                <span>Nat'l Highway, Catbangen, City of San Fernando, LU, 2500</span>
               </div>
               <div className="hb-contact-container">
                 <MdOutlineMailOutline className="icon" />{' '}
-                <span>metxtract@gmail.com</span>
+                <span>colestephany.estrada@student.dmmmsu.<br/>edu.ph</span>
               </div>
               <div className="hb-contact-container">
-                <MdOutlinePhone className="icon" /> <span>+639614222665</span>
+                <MdOutlinePhone className="icon" /> <span>+63 947 991 3900</span>
               </div>
             </div>
           </li>
           <li>
             <div className="hb-section3">
-              <div className="hb-socials">
-                <div className="hb-socials_container">
-                  <FaFacebookF className="hb-icon_socials" />
-                </div>
-                <div className="hb-socials_container">
-                  <FaInstagram className="hb-icon_socials" />
-                </div>
-                <div className="hb-socials_container">
-                  <FaXTwitter className="hb-icon_socials" />
-                </div>
-                <div className="hb-socials_container">
-                  <MdOutlineMailOutline className="hb-icon_socials" />
-                </div>
-              </div>
               <div className="hb-socials_text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt.
+              <div className="copytitle">COPYRIGHT</div> 
+              <div className="copyinitials">CSE &nbsp;|&nbsp; JKB &nbsp;|&nbsp; JAB &nbsp;|&nbsp; RJB &nbsp;|&nbsp; EE </div>
               </div>
             </div>
           </li>
