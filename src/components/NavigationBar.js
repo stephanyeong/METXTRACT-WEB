@@ -65,7 +65,7 @@ function NavigationBar() {
         <ul>
           <li>
             <div className="hb-section1">
-              <h3>About Us</h3>
+              <h3>METXTRACT</h3>
               <p className="hb-section1text">
               METXTRACT serves as a platform for scholarly research, providing a comprehensive range of features and resources tailored to the needs of academics, researchers, and students. It serves as our final requirement for Capstone Project 2 for the first semester of the Academic Year 2023-2024.
               </p>
@@ -73,7 +73,7 @@ function NavigationBar() {
           </li>
           <li>
             <div className="hb-section2">
-              <h3>Contact Us</h3>
+              <h3>GET IN TOUCH</h3>
               <div className="hb-contact-container">
                 <MdOutlineLocationOn className="icon" />{' '}
                 <span>Nat'l Highway, Catbangen, City of San Fernando, LU, 2500</span>
