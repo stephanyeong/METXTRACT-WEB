@@ -15,6 +15,7 @@ export default function TableUnstyled() {
   const [dataSet, setDataSet] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [adviserSearchTerm, setAdviserSearchTerm] = useState('');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [selectedYears, setSelectedYears] = useState([]);
@@ -66,11 +67,25 @@ export default function TableUnstyled() {
       (data) =>
         data.title.toLowerCase().includes(term) ||
         data.authors.toLowerCase().includes(term) ||
-        data.publicationDate.toLowerCase().includes(term)
+        data.publicationDate.toLowerCase().includes(term) ||
+        data.keywords.toLowerCase().includes(term) 
     );
 
     setFilteredData(filtered);
     setPage(0); 
+  };
+
+  const handleAdviserSearchChange = (event) => {
+    const term = event.target.value.toLowerCase();
+    setAdviserSearchTerm(term);
+
+    const filtered = dataSet.filter(
+      (data) =>
+        data.adviser.toLowerCase().includes(term)
+    );
+
+    setFilteredData(filtered);
+    setPage(0);
   };
 
   const handleYearChange = (event) => {
@@ -116,7 +131,7 @@ export default function TableUnstyled() {
       <hr className="divider"/>
       <div className="search-bar">
         <div className="search-input">
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <FontAwesomeIcon  icon={faSearch} className="search-icon" />
           <input
             type="text"
             placeholder="Search"
@@ -124,6 +139,16 @@ export default function TableUnstyled() {
             onChange={handleSearchChange}
           />
         </div>
+        
+        <div className="search-input1">
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search Adviser"
+            value={adviserSearchTerm}
+            onChange={handleAdviserSearchChange}
+        />
+      </div>
         <div className="dropdown" onClick={handleFilterToggle}>
           <div className="dropdown-labeltext">Select Year</div>
           {isFilterOpen && (
