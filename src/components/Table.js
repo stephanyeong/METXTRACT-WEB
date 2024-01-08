@@ -34,7 +34,7 @@ export default function TableUnstyled() {
   async function fetchDataFromPdfList() {
     const db = getFirestore(app);
     const pdfListRef = collection(db, 'pdfList');
-
+  
     try {
       const querySnapshot = await getDocs(pdfListRef);
       const newData = [];
@@ -48,10 +48,32 @@ export default function TableUnstyled() {
       console.error('Error getting documents: ', error);
     }
   }
-
+  
   useEffect(() => {
     fetchDataFromPdfList();
   }, []);
+  
+  const fetchPdfFile = async (pdfUrl) => {
+    try {
+      const response = await fetch(pdfUrl, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Access-Control-Allow-Origin': 'https://metxtract-web.vercel.app', // Replace with your actual domain
+          // Add any other headers you may need
+        },
+      });
+  
+      if (response.ok) {
+        // Handle successful response
+      } else {
+        console.error('Failed to fetch PDF:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching PDF:', error);
+    }
+  };
+  
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredData.length) : 0;
