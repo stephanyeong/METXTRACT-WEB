@@ -6,11 +6,24 @@ import {
   MdOutlineMailOutline,
   MdOutlinePhone,
 } from 'react-icons/md';
-import { FaFacebookF, FaInstagram, FaXTwitter } from 'react-icons/fa6';
+import { FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 function NavigationBar() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token-uid");
+  const [profileText, setProfileText] = useState("Sign In");
+  const email = localStorage.getItem("email");
+  useEffect(() => {
+    if (token) {
+      setProfileText("Sign Out");
+    } else {
+      setProfileText("Sign In");
+    }
+  }, [token]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,6 +36,27 @@ function NavigationBar() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const handleProfileIconClick = () => {
+    setShowProfileDropdown(!showProfileDropdown);
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("token-uid");
+    navigate("/");
+  };
 
   return (
     <nav className="navigation">
@@ -97,7 +131,17 @@ function NavigationBar() {
           </li>
         </ul>
       </div>
+      <div className="profile-icon-container" onClick={handleProfileIconClick}>
+        <FaUserCircle className="profile-icon" />
+        {showProfileDropdown && (
+          <div className="profile-dropdown">
+            <p style={{ fontSize: '12px' }}>{email}</p>
+            <button onClick={handleSignOut}>{profileText}</button>
+          </div>
+        )}
+      </div>
     </nav>
+    
   );
 }
 

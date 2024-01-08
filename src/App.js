@@ -1,40 +1,45 @@
-import React from 'react';
-import './App.css';
-import NavigationBar from './components/NavigationBar';
-import Carousel from './components/Carousel';
-import Table from './components/Table';
-import { MdOutlineLocationOn, MdOutlineMailOutline, MdOutlinePhone } from "react-icons/md";
-import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
-import { fontStyle } from '@mui/system';
+import * as React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
+//Paths
+import Login from './auth/Login';
+import Register from './auth/Register';
+import Home from './components/Home';
+
+function MainContent() {
+  const location = useLocation();
+
+  if (location.pathname === '/') {
+    return <Login />;
+  }
+
+  return (
+    <div className="App" style={{ display: 'flex' }}>
+      <div
+          className="main-content"
+          style={{
+            flex: 1,
+            overflow: 'auto',
+            paddingBottom: 15,
+            backgroundColor: '#F4F7FE',
+            boxSizing: 'border-box',
+            minHeight: '100%',
+          }}
+        >
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="Register" element={<Register />} />
+            <Route path="Home" element={<Home />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
 function App() {
   return (
-    <div className="App">
-      <NavigationBar />
-      <Carousel />
-      <div className="table">
-        <Table />
-      </div>
-      <footer className="footer">
-        <div className="footer-section1">
-          <h3>About Us</h3>
-          <p>METXTRACT serves as a platform for scholarly research, providing a comprehensive range of features and resources tailored to the needs of academics, researchers, and students. It serves as our final requirement for Capstone Project 2 for the first semester of the Academic Year 2023-2024.</p>
-          <p className="copyright"><br/>Copyright:  CSE  |  JKB  |  JAB  |  RJB  |  EE</p>
-        </div>
-        <div className="footer-section2">
-          <div className="new-h3">Contact Us</div>
-          <div className="contact-container">
-            <MdOutlineLocationOn className="icon"/> <span>Nat'l Highway, Catbangen, City of San Fernando, LU, 2500</span>
-          </div>
-          <div className="contact-container">
-            <MdOutlineMailOutline className="icon"/> <span>colestephany.estrada@student.dmmmsu.edu.ph</span>
-          </div>
-          <div className="contact-container">
-            <MdOutlinePhone className="icon"/> <span>+63 947 991 3900</span>
-          </div>
-        </div>
-      </footer>
-    </div>
+    <Router>
+        <MainContent />
+    </Router>
   );
 }
 

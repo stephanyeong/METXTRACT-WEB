@@ -10,6 +10,14 @@ import {
 import '../styles/Table.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Document, Page, pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function TableUnstyled() {
   const [dataSet, setDataSet] = useState([]);
@@ -20,6 +28,8 @@ export default function TableUnstyled() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [selectedYears, setSelectedYears] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [selectedPdfUrl, setSelectedPdfUrl] = useState('');
 
   async function fetchDataFromPdfList() {
     const db = getFirestore(app);
@@ -55,8 +65,14 @@ export default function TableUnstyled() {
     setPage(0);
   };
 
-  const handleButtonClick = (data) => {
-    window.open(data, '_blank');
+  const openPdfModal = (pdfDownloadUrl) => {
+    setSelectedPdfUrl(pdfDownloadUrl);
+    setIsPdfModalOpen(true);
+  };
+
+  const closePdfModal = () => {
+    setIsPdfModalOpen(false);
+    setSelectedPdfUrl('');
   };
 
   const handleSearchChange = (event) => {
@@ -105,7 +121,6 @@ export default function TableUnstyled() {
     setFilteredData(filtered);
     setPage(0);
   };
-  
 
   const handleFilterToggle = (event) => {
     event.preventDefault();
@@ -125,6 +140,10 @@ export default function TableUnstyled() {
       document.removeEventListener('click', handleDocumentClick);
     };
   }, [isFilterOpen]);
+
+  const handlePdfLoadSuccess = (event) => {
+    console.log('PDF loaded successfully:', event);
+  };
 
   return (
     <Root>
@@ -200,7 +219,7 @@ export default function TableUnstyled() {
                 <td>
                   <button
                     className="main-button"
-                    onClick={() => handleButtonClick(data.pdfDownloadUrl)}
+                    onClick={() => openPdfModal(data.pdfDownloadUrl)}
                   >
                     <img
                       className="pdf-button"
@@ -243,6 +262,18 @@ export default function TableUnstyled() {
           </tr>
         </tfoot>
       </table>
+      <Dialog open={isPdfModalOpen} onClose={closePdfModal} maxWidth="lg"
+        fullWidth>
+        <DialogTitle style={{ color: '#048CB4' }}>PDF Viewer</DialogTitle>
+        <DialogContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Document file={selectedPdfUrl} onLoadSuccess={handlePdfLoadSuccess}>
+            <Page pageNumber={4} />
+          </Document>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closePdfModal}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Root>
   );
 }

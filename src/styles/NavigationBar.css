@@ -12,7 +12,45 @@
     color: var(--primary);
     box-shadow: 0 0.5px 0.5px 0.5px rgba(93, 93, 93, 0.23);
   }
+  .profile-icon-container{
+    margin-right: 12rem;
+    display: flex;
+    align-items: center;
+  }
+  .profile-icon {
+    font-size: 2.5rem;
+    cursor: pointer;
+  }
+  .profile-icon-container {
+    position: relative;
+  }
   
+  .profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1;
+  }
+  
+  .profile-dropdown p {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .profile-dropdown button {
+    background-color: #3498db;
+    width: 5rem;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
   .brand-name {
     text-decoration: none;
     color: var(--primary);
@@ -186,7 +224,11 @@
         border-top: 2px solid var(--gbackground);
         display: none;
     }
-
+    .profile-icon-container{
+        margin-right: 4.5rem;
+        display: flex;
+        align-items: center;
+      }
     .navigation-menu.expanded ul {
         display: block;
     }
