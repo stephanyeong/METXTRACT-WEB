@@ -15,6 +15,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Typography from '@mui/material/Typography';
 
 
 export default function TableUnstyled() {
@@ -27,9 +28,11 @@ export default function TableUnstyled() {
   const [selectedYears, setSelectedYears] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
   const [selectedPdfUrl, setSelectedPdfUrl] = useState('');
   const [adviserData, setAdviserData] = useState('');
   const [isTrue, setIsTrue] = useState(false);
+  const [selectedData, setSelectedData] = useState(null);
 
   const token = localStorage.getItem("token-uid");
 
@@ -93,6 +96,79 @@ export default function TableUnstyled() {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const openMoreDialog = (title, authors, publicationDate, adviser, method, keywords, researchDesign, researchType) => {
+    console.log("Clicked!");
+    setSelectedData({
+      title,
+      authors,
+      publicationDate,
+      adviser,
+      method,
+      keywords,
+      researchDesign,
+      researchType,
+    });
+    setIsMoreModalOpen(true);
+  }
+
+  const closeMoreDialog = () => {
+    setIsMoreModalOpen(false);
+
+  }
+
+  const MoreModal = ({
+    isOpen,
+    onClose,
+    title,
+    authors,
+    publicationDate,
+    adviser,
+    method,
+    keywords,
+    researchDesign,
+    researchType,
+  }) => {
+    return (
+      <Dialog open={isOpen} onClose={onClose} maxWidth="md" fullWidth>
+        <DialogTitle>
+          <Typography variant="h6" style={{ fontWeight: 'bold', color: '#048CB4' }}>
+            More Details
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          {/* Add your content here using the provided details */}
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Title:</span> {title}
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Authors:</span> {authors}
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Publication Date:</span> {publicationDate}
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Adviser:</span> {adviser}
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Methodology:</span> {method}
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Keywords:</span> {keywords}
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Research Design:</span> {researchDesign}
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Research Type:</span> {researchType}
+          </p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
 
   const openPdfModal = (pdfDownloadUrl, adviser) => {
     console.log("adviser:", adviser);
@@ -260,7 +336,20 @@ export default function TableUnstyled() {
               : filteredData
             ).map((data, index) => (
               <tr key={index}>
-                <td className="title-text">{data.title}</td>
+                <td className="title-text">
+                  {data.title}{' '}
+                  <p
+                    style={{
+                      textDecoration: 'underline',
+                      color: 'blue',
+                      display: 'inline',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => openMoreDialog(data.title, data.authors, data.publicationDate, data.adviser, data.methodology, data.keywords, data.researchDesign, data.researchType,)}
+                  >
+                    more
+                  </p>
+                </td>
                 <td>
                   <button
                     className="main-button"
@@ -339,6 +428,13 @@ export default function TableUnstyled() {
           <Button onClick={closePdfModal}>Close</Button>
         </DialogActions>
       </Dialog>}
+      {selectedData && (
+        <MoreModal
+          isOpen={isMoreModalOpen}
+          onClose={closeMoreDialog}
+          {...selectedData}
+        />
+      )}
     </Root>
   );
 }
