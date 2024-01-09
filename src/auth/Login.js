@@ -11,7 +11,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#048CB4",
+    },
+  },
+});
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -60,7 +66,10 @@ export default function Login() {
                 marginBottom: '20%',
               }}
             >
-              <Typography component="h1" variant="h5">
+              <div>
+                <img src="images/logo.png" alt="Logo" className="logo-auth"/>
+              </div>
+              <Typography component="h3" variant="h5" color={'black'}>
                 METXTRACT ADVISER LOGIN
               </Typography>
               <TextField
@@ -91,6 +100,7 @@ export default function Login() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                
               >
                 Login
               </Button>

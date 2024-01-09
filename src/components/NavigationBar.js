@@ -135,7 +135,6 @@ function NavigationBar() {
         <FaUserCircle className="profile-icon" />
         {showProfileDropdown && (
           <div className="profile-dropdown">
-            <p style={{ fontSize: '12px' }}>{email}</p>
             <button onClick={handleSignOut}>{profileText}</button>
           </div>
         )}

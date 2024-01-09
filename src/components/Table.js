@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
 import { app } from '../firebase';
 import { useEffect, useState } from 'react';
 import {
@@ -15,9 +15,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Document, Page, pdfjs } from "react-pdf";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 export default function TableUnstyled() {
   const [dataSet, setDataSet] = useState([]);
@@ -30,11 +28,15 @@ export default function TableUnstyled() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [selectedPdfUrl, setSelectedPdfUrl] = useState('');
+  const [adviserData, setAdviserData] = useState('');
+  const [isTrue, setIsTrue] = useState(false);
+
+  const token = localStorage.getItem("token-uid");
 
   async function fetchDataFromPdfList() {
     const db = getFirestore(app);
     const pdfListRef = collection(db, 'pdfList');
-  
+
     try {
       const querySnapshot = await getDocs(pdfListRef);
       const newData = [];
@@ -48,31 +50,36 @@ export default function TableUnstyled() {
       console.error('Error getting documents: ', error);
     }
   }
-  
+
   useEffect(() => {
     fetchDataFromPdfList();
   }, []);
+
+  async function fetchDataFromAdvisers() {
+    const db = getFirestore(app);
+    const advisersRef = collection(db, 'advisers');
   
-  const fetchPdfFile = async (pdfUrl) => {
     try {
-      const response = await fetch(pdfUrl, {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Access-Control-Allow-Origin': 'https://metxtract-web.vercel.app', // Replace with your actual domain
-          // Add any other headers you may need
-        },
-      });
+      const querySnapshot = await getDocs(query(advisersRef, where('uid', '==', token)));
+      const doc = querySnapshot.docs[0]; 
   
-      if (response.ok) {
-        // Handle successful response
+      if (doc) {
+        const data = doc.data();
+        const adviserData = data.fullName;
+  
+        setAdviserData(adviserData);
+        console.log(adviserData);
       } else {
-        console.error('Failed to fetch PDF:', response.status, response.statusText);
+        console.log('No matching document found');
       }
     } catch (error) {
-      console.error('Error fetching PDF:', error);
+      console.error('Error getting documents: ', error);
     }
-  };
+  }
+  
+  useEffect(() => {
+    fetchDataFromAdvisers();
+  }, []);
   
 
   const emptyRows =
@@ -87,10 +94,27 @@ export default function TableUnstyled() {
     setPage(0);
   };
 
-  const openPdfModal = (pdfDownloadUrl) => {
+  const openPdfModal = (pdfDownloadUrl, adviser) => {
+    console.log("adviser:", adviser);
+    console.log("adviserData:", adviserData);
     setSelectedPdfUrl(pdfDownloadUrl);
+    const adviserParts = adviser.split(' ');
+
+    const containsAnyPart = adviserParts.some(part => adviserData.includes(part));
+  
+    console.log("Contains Any Part:", containsAnyPart);
+  
+    setIsTrue(containsAnyPart);
+  
+    if (containsAnyPart) {
+      console.log("Values are true!");
+    } else {
+      console.log("Values are not true.");
+    }
+  
     setIsPdfModalOpen(true);
   };
+  
 
   const closePdfModal = () => {
     setIsPdfModalOpen(false);
@@ -143,6 +167,7 @@ export default function TableUnstyled() {
     setFilteredData(filtered);
     setPage(0);
   };
+  
 
   const handleFilterToggle = (event) => {
     event.preventDefault();
@@ -163,9 +188,7 @@ export default function TableUnstyled() {
     };
   }, [isFilterOpen]);
 
-  const handlePdfLoadSuccess = (event) => {
-    console.log('PDF loaded successfully:', event);
-  };
+  
 
   return (
     <Root>
@@ -241,7 +264,9 @@ export default function TableUnstyled() {
                 <td>
                   <button
                     className="main-button"
-                    onClick={() => openPdfModal(data.pdfDownloadUrl)}
+                    onClick={() => {
+                      openPdfModal(data.pdfDownloadUrl, data.adviser);
+                    }}
                   >
                     <img
                       className="pdf-button"
@@ -284,18 +309,36 @@ export default function TableUnstyled() {
           </tr>
         </tfoot>
       </table>
+      {token && isTrue ? 
       <Dialog open={isPdfModalOpen} onClose={closePdfModal} maxWidth="lg"
         fullWidth>
         <DialogTitle style={{ color: '#048CB4' }}>PDF Viewer</DialogTitle>
         <DialogContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Document file={selectedPdfUrl} onLoadSuccess={handlePdfLoadSuccess}>
-            <Page pageNumber={4} />
-          </Document>
+          <iframe
+            src={selectedPdfUrl}
+            style={{ width: '80%', height: '500px' }} 
+            title="PDF Viewer"
+          ></iframe>
         </DialogContent>
         <DialogActions>
           <Button onClick={closePdfModal}>Close</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> 
+      : 
+      <Dialog open={isPdfModalOpen} onClose={closePdfModal} maxWidth="lg"
+        fullWidth>
+        <DialogTitle style={{ color: '#048CB4' }}>PDF Viewer</DialogTitle>
+        <DialogContent style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <iframe
+            src={selectedPdfUrl +"#toolbar=0"}
+            style={{ width: '80%', height: '500px' }} 
+            title="PDF Viewer"
+          ></iframe>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closePdfModal}>Close</Button>
+        </DialogActions>
+      </Dialog>}
     </Root>
   );
 }

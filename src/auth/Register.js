@@ -15,7 +15,13 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import { v4 as uuidv4 } from 'uuid';
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#048CB4",
+    },
+  },
+});
 
 export default function Register() {
   const UID = uuidv4();
@@ -73,7 +79,10 @@ export default function Register() {
                 marginBottom: '20%',
               }}
             >
-              <Typography component="h1" variant="h5">
+              <div>
+                <img src="images/logo.png" alt="Logo" className="logo-auth"/>
+              </div>
+              <Typography component="h3" variant="h5" color={'black'}>
                 METXTRACT ADVISER SIGN UP
               </Typography>
               <TextField

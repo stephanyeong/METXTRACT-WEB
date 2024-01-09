@@ -17,7 +17,9 @@
     .logo-container {
     margin: auto;
     }
-    
+    .logo-auth {
+      height: 20vh;
+    }
     .login-logo {
     width: 45%;
     height: auto;
