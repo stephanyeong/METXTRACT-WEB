@@ -206,7 +206,10 @@ export default function TableUnstyled() {
         data.title.toLowerCase().includes(term) ||
         data.authors.toLowerCase().includes(term) ||
         data.publicationDate.toLowerCase().includes(term) ||
-        data.keywords.toLowerCase().includes(term) 
+        data.keywords.toLowerCase().includes(term) ||
+        data.methodology.toLowerCase().includes(term) ||
+        data.researchDesign.toLowerCase().includes(term) ||
+        data.researchType.toLowerCase().includes(term)
     );
 
     setFilteredData(filtered);
